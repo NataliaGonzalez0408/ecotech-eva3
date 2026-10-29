@@ -12,7 +12,7 @@ crear_tablas()
 # emp=Empleado(nombre="admin", correo="admin@admin.com", telefono="" , fecha_inicio_contrato="" , salario="" )
 # EmpleadoDAO.insertar(emp)
 
-# user=registrar_usuario(emp.id, "admin","admin12332")
+# user=registrar_usuario(emp.id, "admin","admin123323")
 
 # print(emp.mostrar_datos())
 # print(user)
