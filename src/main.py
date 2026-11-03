@@ -7,8 +7,6 @@ from menus.menu_usuario import solicitar_login, menu_privado
 
 crear_tablas()
 
-
-
 # emp=Empleado(nombre="admin", correo="admin@admin.com", telefono="" , fecha_inicio_contrato="" , salario="" )
 # EmpleadoDAO.insertar(emp)
 
@@ -16,7 +14,6 @@ crear_tablas()
 
 # print(emp.mostrar_datos())
 # print(user)
-
 
 def main():
     while True:
@@ -30,7 +27,6 @@ def main():
         if opcion == "0":
             return
         print("Sesión cerrada. Ingrese nuevamente.")
-
 
 if __name__ == "__main__":
     main()

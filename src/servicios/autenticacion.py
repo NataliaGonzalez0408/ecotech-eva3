@@ -41,4 +41,4 @@ def autenticar(nombre, clave):
     if not bcrypt.checkpw(datos, cuenta.contrasena.encode("utf-8")):
         return None
     return {"id": cuenta.id, "empleado_id": cuenta.empleado_id,
-    "nombre_usuario": cuenta.nombre_usuario}
+    "nombre_usuario": cuenta.nombre_usuario, "rol": cuenta.rol}

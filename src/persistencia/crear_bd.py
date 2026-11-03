@@ -111,10 +111,21 @@ def crear_tablas():
             nombre_usuario TEXT NOT NULL UNIQUE,
             contrasena TEXT NOT NULL,
             empleado_id INTEGER NOT NULL UNIQUE,
+            rol TEXT NOT NULL DEFAULT 'empleado' CHECK (rol IN ('admin', 'empleado')),
             FOREIGN KEY (empleado_id) REFERENCES empleado(id)
         );
         '''
-
+    else:
+        sql = '''
+        CREATE TABLE IF NOT EXISTS usuario (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            nombre_usuario VARCHAR(100) NOT NULL UNIQUE,
+            contrasena VARCHAR(255) NOT NULL,
+            empleado_id INT NOT NULL UNIQUE,
+            rol ENUM('admin', 'empleado') NOT NULL DEFAULT 'empleado',
+            FOREIGN KEY (empleado_id) REFERENCES empleado(id)
+        );
+        '''
 
     cursor.execute(sql)
 

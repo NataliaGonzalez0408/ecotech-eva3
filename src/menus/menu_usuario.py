@@ -6,6 +6,7 @@ from servicios.autenticacion import registrar_usuario
 from dominio.usuario import Usuario
 from getpass import getpass
 from servicios.autenticacion import autenticar
+from persistencia.indicador_dao import mostrar_indicador
 
 def solicitar_registro():
     try:
@@ -50,7 +51,7 @@ def consultar_indicador(usuario_actual):
     if usuario_actual is None:
         print("Inicie sesión para consultar indicadores.")
         return
-        mostrar_indicador() # Consulta de la clase 2.
+    mostrar_indicador()
 
 def menu_privado(usuario_actual):
     if usuario_actual is None:
@@ -67,5 +68,8 @@ def menu_privado(usuario_actual):
             mostrar_perfil(usuario_actual)
         elif opcion == "3":
             consultar_indicador(usuario_actual)
+        elif usuario_actual["rol"] == "admin":
+            print("4. Administrar empleados")
         else:
-            print("Opción no válida.") 
+            print("Opción no válida.")
+        print("9. Cerrar sesión 0. Salir")
