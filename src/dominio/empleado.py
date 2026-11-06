@@ -15,6 +15,9 @@ class Empleado:
         self.salario = salario
         self.id = id
 
+
+    def __str__(self) -> str:
+        return f"{self.nombre} - {self.correo} - {self.id}"
     def mostrar_datos(self) -> str:
         #return f"{self.nombre} - {self.direccion} - {self.telefono} - {self.correo} - {self.fechainiciocontrato} - {self.salario} - {self.id}"
         

@@ -1,21 +1,20 @@
-# main.py
+import sys
 from persistencia.crear_bd import crear_tablas
-from dominio.empleado import Empleado
-from persistencia.empleado_dao import EmpleadoDAO
-from servicios.autenticacion import registrar_usuario
+from persistencia.semilla_bd import sembrar_datos
 from menus.menu_usuario import solicitar_login, menu_privado
 
-crear_tablas()
-
-# emp=Empleado(nombre="admin", correo="admin@admin.com", telefono="" , fecha_inicio_contrato="" , salario="" )
-# EmpleadoDAO.insertar(emp)
-
-# user=registrar_usuario(emp.id, "admin","admin123323")
-
-# print(emp.mostrar_datos())
-# print(user)
+def inicializar_aplicacion():
+    try:
+        crear_tablas()
+        sembrar_datos()
+    except Exception as e:
+        print(f"Error al inicializar la aplicación: {e}")
+        sys.exit(1)
 
 def main():
+    inicializar_aplicacion()
+    print("Bienvenido a la aplicación de gestión de empleados, querido usuario.")
+
     while True:
         usuario_actual = solicitar_login()
         if usuario_actual is None:
@@ -26,7 +25,7 @@ def main():
         usuario_actual = None # Terminar el acceso de esta sesión.
         if opcion == "0":
             return
-        print("Sesión cerrada. Ingrese nuevamente.")
+        print("Sesión cerrada. Por favor, inicie sesión nuevamente.")
 
 if __name__ == "__main__":
     main()

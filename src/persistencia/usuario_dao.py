@@ -11,8 +11,8 @@ class UsuarioDAO:
 
         sql = f"""
             INSERT INTO usuario
-            (nombre_usuario, contrasena,empleado_id)
-            VALUES ({marca}, {marca}, {marca})
+            (nombre_usuario, contrasena,empleado_id, rol)
+            VALUES ({marca}, {marca}, {marca}, {marca})
         """
 
         cursor.execute(
@@ -20,7 +20,8 @@ class UsuarioDAO:
             (
                 usuario.nombre_usuario,
                 usuario.contrasena,
-                usuario.empleado_id
+                usuario.empleado_id,
+                usuario.rol
             )
         )
 
@@ -39,7 +40,8 @@ class UsuarioDAO:
             id=fila[0],
             nombre_usuario=fila[1],
             contrasena=fila[2],
-            empleado_id=fila[3]
+            empleado_id=fila[3],
+            rol=fila[4]
         )
 
     @staticmethod
@@ -49,7 +51,7 @@ class UsuarioDAO:
         marca = marcador_sql()
 
         sql = f"""
-            SELECT id, nombre_usuario, contrasena, rol, empleado_id
+            SELECT id, nombre_usuario, contrasena, empleado_id, rol
             FROM usuario
             WHERE id = {marca}
         """
@@ -68,7 +70,7 @@ class UsuarioDAO:
         marca = marcador_sql()
 
         sql = f"""
-            SELECT id, nombre_usuario, contrasena, empleado_id
+            SELECT id, nombre_usuario, contrasena, empleado_id, rol
             FROM usuario
             WHERE nombre_usuario = {marca}
         """
@@ -88,13 +90,13 @@ class UsuarioDAO:
 
         if filtrar_por_empleado_id is None:
             sql = """
-                SELECT id, nombre_usuario, contrasena,  empleado_id
+                SELECT id, nombre_usuario, contrasena,  empleado_id, rol
                 FROM usuario
             """
             cursor.execute(sql)
         else:
             sql = f"""
-                SELECT id, nombre_usuario, contrasena, empleado_id
+                SELECT id, nombre_usuario, contrasena, empleado_id, rol
                 FROM usuario
                 WHERE empleado_id = {marca}
             """
@@ -125,7 +127,8 @@ class UsuarioDAO:
                 "UPDATE usuario "
                 f"SET nombre_usuario = {marca}, "
                 f"contrasena = {marca}, "
-                f"empleado_id = {marca} "
+                f"empleado_id = {marca}, "
+                f"rol = {marca} "
                 f"WHERE id = {marca}"
             )
 
@@ -135,6 +138,7 @@ class UsuarioDAO:
                     usuario.nombre_usuario,
                     usuario.contrasena,
                     usuario.empleado_id,
+                    usuario.rol,
                     usuario.id
                 )
             )

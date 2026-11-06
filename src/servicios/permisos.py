@@ -13,3 +13,10 @@ def exigir_admin(sesion):
     exigir_sesion(sesion)
     if sesion["rol"] != "admin":
         raise PermissionError("Acción solo para administrador.")
+
+def obtener_campo(datos, campo, valor_defecto=None):
+    if datos is None:
+        return valor_defecto
+    if isinstance(datos, dict):
+        return datos.get(campo, valor_defecto)
+    return getattr(datos, campo, valor_defecto)

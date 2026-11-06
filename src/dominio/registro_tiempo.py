@@ -1,21 +1,15 @@
 from datetime import date
 
 class RegistroTiempo:
-    def __init__(self, fecha: date, cantidad_horas: float, tareas_realizadas: str, descripcion: str, id=None):
-        self.fecha = fecha
-        self.cantidad_horas = cantidad_horas
-        self.tareas_realizadas = tareas_realizadas
-        self.descripcion = descripcion
+    def __init__(self, id, empleado_id, horas, fecha, descripcion=""):
         self.id = id
+        self.empleado_id = empleado_id
+        self.horas = horas
+        self.fecha = fecha
+        self.descripcion = descripcion
 
-    def mostrar_informacion(self):
-        print(f"Fecha: {self.fecha}")
-        print(f"Cantidad de horas: {self.cantidad_horas}")
-        print(f"Tareas realizadas: {self.tareas_realizadas}")
-        print(f"Descripción: {self.descripcion}")
+    def __str__(self) -> str:
+        return f"ID: {self.id} | Horas: {self.horas} | Fecha: {self.fecha} | Descripción: {self.descripcion}"
 
-    def gestionar_informacion(self):
-        return True
-
-    def actualizar_informacion(self):
-        return self.gestionar_informacion()
+    def __repr__(self) -> str:
+        return self.__str__()

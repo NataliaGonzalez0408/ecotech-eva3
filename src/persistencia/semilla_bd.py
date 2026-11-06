@@ -1,29 +1,35 @@
 from persistencia.crear_bd import abrir_conexion, obtener_motor
+from dominio.usuario import Usuario
+from servicios.autenticacion import crear_hash
+
 
 def sembrar_datos():
     conexion = abrir_conexion()
     cursor = conexion.cursor()
 
+    # 1. Verificar si la base de datos ya tiene datos
     cursor.execute("SELECT COUNT(*) FROM departamento;")
     if cursor.fetchone()[0] > 0:
         print("La base de datos ya contiene registros. Operación omitida.")
+        conexion.close()
         return
 
+    # Determinar el marcador de posición para consultas (%s o ?)
+    motor = obtener_motor()
+    ph = "?" if motor == "sqlite" else "%s"
+
+    # 2. Insertar Departamentos
     departamentos = [
-        ("Recursos Humanos", "Ana López"),  
+        ("Recursos Humanos", "Ana López"),
         ("Desarrollo de Software", "Carlos Pérez"),
         ("Marketing", "Laura Gómez"),
         ("Finanzas", "Javier Torres"),
         ("Operaciones", "Marta Sánchez")
     ]
+    sql_dep = f"INSERT INTO departamento (nombre, gerente) VALUES ({ph}, {ph});"
+    cursor.executemany(sql_dep, departamentos)
 
-    if obtener_motor() == "sqlite":
-            sql_dep = "INSERT INTO departamento (nombre, gerente) VALUES (?, ?);"
-            cursor.executemany(sql_dep, departamentos)
-    else:
-            sql_dep = "INSERT INTO departamento (nombre, gerente) VALUES (%s, %s);"
-            cursor.executemany(sql_dep, departamentos)
-
+    # 3. Insertar Empleados
     empleados = [
         ("Juan Martínez", "juan.martinez@ecotech.com", "569-2221234", "2023-01-15", 500000, 1),
         ("María García", "maria.garcia@ecotech.com", "569-56786115", "2023-02-20", 550000, 2),
@@ -46,13 +52,21 @@ def sembrar_datos():
         ("Natalia Fuentes", "natalia.fuentes@ecotech.com", "569-4444444", "2023-12-31", 510000, 1),
         ("Matías Paredes", "matias.paredes@ecotech.com", "569-5555555", "2023-12-31", 500000, 2)
     ]
+    sql_emp = f"INSERT INTO empleado (nombre, correo, telefono, fecha_inicio_contrato, salario, departamento_id) VALUES ({ph}, {ph}, {ph}, {ph}, {ph}, {ph});"
+    cursor.executemany(sql_emp, empleados)
 
-    if obtener_motor() == "sqlite":
-            sql_emp = "INSERT INTO empleado (nombre, correo, telefono, fecha_inicio_contrato, salario, departamento_id) VALUES (?, ?, ?, ?, ?, ?);"
-            cursor.executemany(sql_emp, empleados)
-    else:
-            sql_emp = "INSERT INTO empleado (nombre, correo, telefono, fecha_inicio_contrato, salario, departamento_id) VALUES (%s, %s, %s, %s, %s, %s);"
-            cursor.executemany(sql_emp, empleados)
+    pass_hash = crear_hash("Admin123*")
+
+    usuarios = [
+        ("admin", pass_hash, 1, "admin"),
+        ("mgarcia", pass_hash, 2, "admin"),
+        ("prodriguez", pass_hash, 3, "empleado"),
+        ("alopez", pass_hash, 4, "empleado"),
+        ("cperez", pass_hash, 5, "empleado")
+    ]
+    sql_usr = f"INSERT INTO usuario (nombre_usuario, contrasena, empleado_id, rol) VALUES ({ph}, {ph}, {ph}, {ph});"
+    cursor.executemany(sql_usr, usuarios)
 
     conexion.commit()
     conexion.close()
+    print("Datos sembrados correctamente en la base de datos.")

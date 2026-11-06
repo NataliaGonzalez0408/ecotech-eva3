@@ -102,6 +102,7 @@ def crear_tablas():
             FOREIGN KEY (empleado_id) REFERENCES empleado(id)
         );
         '''
+    cursor.execute(sql)
 
         # tabla usuario
     if obtener_motor() == "sqlite":
