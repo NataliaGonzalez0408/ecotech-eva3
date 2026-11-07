@@ -16,7 +16,7 @@ Hay que seguir estos pasos desde la terminal que tengas, ya sea el Git Bash o la
 
 ### 1. Clonar el repositorio 
 
-- git clone (https://github.com/TU_USUARIO/ecotech-eva3.git)
+- git clone (https://github.com/NataliaGonzalez0408/ecotech-eva3.git)
 - cd ecotech-eva3
 
 ### 2. Creamos el entorno virtual, y luego se activa.
