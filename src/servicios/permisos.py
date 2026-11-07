@@ -8,7 +8,6 @@ def exigir_sesion(sesion):
     if type(empleado_id) is not int or empleado_id <= 0:
         raise PermissionError("Sesión inválida.")
 
-
 def exigir_admin(sesion):
     exigir_sesion(sesion)
     if sesion["rol"] != "admin":

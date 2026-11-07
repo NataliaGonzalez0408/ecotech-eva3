@@ -2,7 +2,6 @@ from persistencia.crear_bd import abrir_conexion, obtener_motor
 from dominio.usuario import Usuario
 from servicios.autenticacion import crear_hash
 
-
 def sembrar_datos():
     conexion = abrir_conexion()
     cursor = conexion.cursor()
@@ -55,18 +54,61 @@ def sembrar_datos():
     sql_emp = f"INSERT INTO empleado (nombre, correo, telefono, fecha_inicio_contrato, salario, departamento_id) VALUES ({ph}, {ph}, {ph}, {ph}, {ph}, {ph});"
     cursor.executemany(sql_emp, empleados)
 
-    pass_hash = crear_hash("Admin123*")
+    # 4. Insertar Proyectos (antes que registro_tiempo, que depende de ellos)
+    proyectos = [
+        (1, "Desarrollo de Aplicación Móvil", "Desarrollo de una aplicación móvil para la empresa.", "2023-01-01"),
+        (2, "Implementación de Sistema de Gestión", "Implementación de un sistema de gestión para la empresa.", "2023-02-01"),
+        (3, "Diseño de Interfaz de Usuario", "Diseño de la interfaz de usuario para la aplicación.", "2023-03-01"),
+        (4, "Pruebas de Calidad", "Realización de pruebas de calidad para el sistema.", "2023-04-01"),
+        (5, "Documentación Técnica", "Creación de documentación técnica para el sistema.", "2023-05-01"),
+    ]
+    sql_proy = f"INSERT INTO proyecto (id, nombre, descripcion, fecha_inicio) VALUES ({ph}, {ph}, {ph}, {ph});"
+    cursor.executemany(sql_proy, proyectos)
 
+    # 5. Insertar Asignaciones de Empleados a Proyectos
+    asignaciones = [
+        (1, 1, "Desarrollador"),
+        (2, 1, "Tester"),
+        (3, 2, "Analista"),
+        (4, 2, "Desarrollador"),
+        (5, 3, "Diseñador"),
+        (6, 3, "Tester"),
+        (7, 4, "Analista"),
+        (8, 4, "Desarrollador"),
+        (9, 5, "Documentador"),
+        (10, 5, "Tester"),
+    ]
+    sql_asig = f"INSERT INTO empleado_proyecto (empleado_id, proyecto_id, rol_en_proyecto) VALUES ({ph}, {ph}, {ph});"
+    cursor.executemany(sql_asig, asignaciones)
+
+    # 5. Insertar Registros de Tiempo
+    # (fecha, cantidad_horas, tareas_realizadas, descripcion, empleado_id, proyecto_id)
+    registros_tiempo = [
+        ("2023-01-15", 5.3, "Reunión con cliente", "Levantamiento de requisitos", 1, 1),
+        ("2023-01-16", 4.0, "Desarrollo de módulo", "Módulo de autenticación", 2, 2),
+        ("2023-01-17", 6.5, "Pruebas de integración", "Pruebas entre módulos", 3, 3),
+        ("2023-01-18", 7.2, "Documentación técnica", "Manual de usuario", 4, 4),
+        ("2023-01-19", 5.8, "Capacitación interna", "Capacitación al equipo", 5, 5),
+    ]
+    sql_reg = (
+        "INSERT INTO registro_tiempo "
+        "(fecha, cantidad_horas, tareas_realizadas, descripcion, empleado_id, proyecto_id) "
+        f"VALUES ({ph}, {ph}, {ph}, {ph}, {ph}, {ph});"
+    )
+    cursor.executemany(sql_reg, registros_tiempo)
+
+    # 6. Insertar Usuarios
+    pass_hash = crear_hash("Admin123*")
     usuarios = [
-        ("admin", pass_hash, 1, "admin"),
+        ("jmartinez", pass_hash, 1, "admin"),
         ("mgarcia", pass_hash, 2, "admin"),
         ("prodriguez", pass_hash, 3, "empleado"),
         ("alopez", pass_hash, 4, "empleado"),
-        ("cperez", pass_hash, 5, "empleado")
+        ("cperez", pass_hash, 5, "empleado"),
     ]
     sql_usr = f"INSERT INTO usuario (nombre_usuario, contrasena, empleado_id, rol) VALUES ({ph}, {ph}, {ph}, {ph});"
     cursor.executemany(sql_usr, usuarios)
 
     conexion.commit()
     conexion.close()
-    print("Datos sembrados correctamente en la base de datos.")
+    print("Datos sembrados exitosamente en la base de datos.")

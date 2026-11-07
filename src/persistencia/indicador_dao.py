@@ -93,3 +93,20 @@ class IndicadorDAO:
             historial.append(ind)
 
         return historial
+    
+    @staticmethod
+    def guardar_consulta(fecha_indicador, valor, verificado_en, fuente):
+        """Guarda una consulta de indicador económico en el historial de la BD."""
+        conexion = abrir_conexion()
+        cursor = conexion.cursor()
+        m = marcador_sql()
+
+        sql = f"""
+            INSERT INTO historial_indicador (fecha, valor, verificado_en, fuente)
+            VALUES ({m}, {m}, {m}, {m})
+        """
+        cursor.execute(sql, (fecha_indicador, valor, verificado_en, fuente))
+        conexion.commit()
+
+        cursor.close()
+        conexion.close()

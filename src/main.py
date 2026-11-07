@@ -13,7 +13,8 @@ def inicializar_aplicacion():
 
 def main():
     inicializar_aplicacion()
-    print("Bienvenido a la aplicación de gestión de empleados, querido usuario.")
+    print("Bienvenido a la aplicación de gestión de empleados, querido Empleado. ")
+    print("Por favor, inicie sesión para continuar.")
 
     while True:
         usuario_actual = solicitar_login()

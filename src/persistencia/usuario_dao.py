@@ -1,5 +1,6 @@
 from dominio.usuario import Usuario
 from persistencia.conexion import abrir_conexion, marcador_sql
+from dominio.empleado import Empleado
 
 class UsuarioDAO:
 
@@ -62,6 +63,23 @@ class UsuarioDAO:
         conexion.close()
 
         return UsuarioDAO.fila_a_usuario(fila)
+
+    @staticmethod
+    def buscar_por_empleado_id(empleado_id):
+        conexion = abrir_conexion()
+        cursor = conexion.cursor()
+        marca = marcador_sql()
+        sql = f"""
+                SELECT id, nombre, correo, telefono, fecha_inicio_contrato, salario
+                FROM empleado WHERE id = {marca}
+            """
+        cursor.execute(sql, (empleado_id,))
+        fila = cursor.fetchone()
+        conexion.close()
+        if fila is None:
+            return None
+        return Empleado(id=fila[0], nombre=fila[1], correo=fila[2], telefono=fila[3], fecha_inicio_contrato=fila[4], salario=fila[5])
+
 
     @staticmethod
     def buscar_por_nombre(nombre_usuario):

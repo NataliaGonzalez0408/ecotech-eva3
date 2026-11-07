@@ -1,63 +1,41 @@
-# ecotech-eva3
+# EcoTech Solutions — Sistema de Gestión Interna
 
-coTech Solutions
+## Descripción del Proyecto
 
-Descripción del proyecto
+**EcoTech Solutions** es una aplicación desarrollada en Python para la gestión integral de personal, departamentos, proyectos y registros de tiempo de trabajo. El sistema implementa una arquitectura por capas basada en patrones **DAO (Data Access Object)**, servicios de negocio, validaciones y sanitización estricta de datos. Cuenta con una autenticación segura de usuarios (`bcrypt`) y un soporte de persistencia tanto para **SQLite** como para **MySQL/MariaDB**.
 
-EcoTech Solutions es un proyecto desarrollado en Python para gestionar información de empleados, departamentos, proyectos y registros de tiempo. Su objetivo es organizar la información y facilitar las operaciones mediante el uso de clases, DAO y una conexión a una base de datos.
+Antes de poder ejecutar la aplicación, hay que asegurarse de contar con:
 
-Tecnologías utilizadas
+1. Python 3.10 o superior instalado.
+2. Git instalado en el sistema.
+3. Entorno virtual activo y dependencias instaladas.
 
-Python SQLite MySQL Git y GitHub
+## Instalación y Configuración
 
-Requisitos
+Hay que seguir estos pasos desde la terminal que tengas, ya sea el Git Bash o la Consola de tu dispositivo:
 
-Antes de ejecutar el proyecto, se necesita tener instalado:
+### 1. Clonar el repositorio 
 
-Python Git Las dependencias indicadas en requirements.txt
+- git clone (https://github.com/TU_USUARIO/ecotech-eva3.git)
+- cd ecotech-eva3
 
-Instalación y ejecución
+### 2. Creamos el entorno virtual, y luego se activa.
 
-Pasos para lograr instalar este repositorio (En Git Bach):
+- python -m venv venv
+- source venv/Scripts/activate 
 
-1.- Clonar el repositorio desde Git Bash:
+### 3. Instalar dependencias del proyecto
+- pip install --upgrade pip
+- pip install -r requirements.txt
 
-git clone URL_DEL_REPOSITORIO
+Luego, para abrir el codigo, se deberia de colocar:
 
-2.- Ingresar a la carpeta del proyecto:
+- code .
 
-cd Ecotech_grupal
+### Ejecucion del Sistema
 
-3.- Crear el entorno virtual de Python:
+Ya realizado la clonación del repositorio, la creacion y activacion del entorno virtual y las dependencias instaladas, se deberia de iniciar la aplicacion:
 
-python -m venv .venv
+- python main.py
 
-4.- Activar el entorno virtual:
-
-source .venv/Scripts/activate
-
-5.- Instalar las dependencias necesarias:
-
-pip install -r requirements.txt
-
-Configurar la base de datos
-El proyecto permite utilizar SQLite o MySQL mediante el archivo de conexión. Se deben configurar las variables de entorno necesarias según el motor seleccionado, utilizando los datos correspondientes al entorno de ejecución.
-
-Ejecutar el programa
-Una vez configuradas las dependencias y la base de datos, ejecutar el archivo principal del proyecto desde la terminal.
-
-El comando exacto debe ajustarse al nombre y la ubicación reales de dicho archivo.
-
-Estructura general
-
-src/dominio/: contiene las clases principales del sistema.
-
-src/persistencia/: contiene los archivos de conexión y acceso a datos (DAO).
-
-requirements.txt: contiene las dependencias de Python.
-
-README.md: contiene la información y las instrucciones del proyecto.
-
-Autores
-
-Proyecto desarrollado en equipo para EcoTech Solutions.s
+La población de datos gracias a la semilla se hara automaticamente iniciada la aplicacion, y para poder probar el repositorio, debes de iniciar sesion.
