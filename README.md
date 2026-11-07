@@ -39,3 +39,12 @@ Ya realizado la clonación del repositorio, la creacion y activacion del entorno
 - python main.py
 
 La población de datos gracias a la semilla se hara automaticamente iniciada la aplicacion, y para poder probar el repositorio, debes de iniciar sesion.
+
+### Datos Sesión
+
+Para probarlo como admin, se deberá de iniciar de la siguiente manera:
+
+- Usuario: jmartinez
+- Contraseña: Admin123*
+
+Y con eso, tendrás libertad para revisar el proyecto con el mayor rol posible.
